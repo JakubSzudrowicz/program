@@ -1,22 +1,31 @@
 const router = require('express').Router()
 const User = require('../models/user.model')
 const { body, validationResult } = require('express-validator')
+const passport = require('passport')
+const connectEnsureLogin = require('connect-ensure-login')
 
-router.get('/login', async (req, res, next) => {
+router.get('/login',
+connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}),
+ async (req, res, next) => {
     res.render('login')
 })
 
-router.post('/login', async (req, res, next) => {
-    res.send('Login post')
-})
+router.post('/login',
+    connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}),
+    passport.authenticate('local', {
+    successReturnToOrRedirect: '/',
+    failureRedirect: '/auth/login',
+    failureFlash: true
+}))
 
-router.get('/register', async (req, res, next) => {
-
-    
+router.get('/register',
+connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}),
+async (req, res, next) => {
     res.render('register')
 })
 
-router.post('/register', [
+router.post('/register',
+connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}), [
     body('email')
     .trim()
     .isEmail()
@@ -62,8 +71,11 @@ router.post('/register', [
     }
 })
 
-router.get('/logout', async (req, res, next) => {
-    res.send('Logout')
+router.get('/logout',
+connectEnsureLogin.ensureLoggedIn({redirectTo: '/'}),
+ async (req, res, next) => {
+    req.logout()
+    res.redirect('/')
 })
 
 module.exports = router

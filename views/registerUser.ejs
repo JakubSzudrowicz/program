@@ -2,7 +2,7 @@
 
 <h1>Register</h1>
 
-  <form action="/admin/register" method="post" class="lg-form">
+  <form action="/auth/registerUser" method="post" class="lg-form">
     <div>
       <label for="email">Email</label>
       <input type="text" name="email" id="email" value="<%= locals.email ? email : '' %>" />
@@ -19,5 +19,6 @@
       <input type="submit" value="Register" />
     </div>
   </form>
+
 
 <%- include('./layouts/footer') %> 

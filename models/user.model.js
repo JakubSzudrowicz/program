@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const createHttpError = require('http-errors')
-const {roles} =require('../utils/constants')
+const {roles} = require('../utils/constants')
 
 const UserSchema = new mongoose.Schema({
     email:{
@@ -27,12 +27,12 @@ UserSchema.pre('save', async function(next) {
         if(this.isNew){
             const hashedPassword = await bcrypt.hash(this.password, 10)
             this.password = hashedPassword
-            if(this.email === process.env.ADMIN_EMAIL.toLowerCase()) {
+            if(this.email === process.env.ADMIN_EMAIL.toLowerCase) {
                 this.role = roles.admin
             }
         }
         next()
-    }catch(error) {
+    } catch(error) {
         next(error)
     }
 })

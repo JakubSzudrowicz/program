@@ -9,6 +9,7 @@ const connectFlash = require('connect-flash')
 const passport = require('passport')
 const connectMongo = require('connect-mongo')
 const connectEnsureLogin = require('connect-ensure-login')
+const { roles } = require('./utils/constants')
 
 app.use(morgan('dev'))
 
@@ -27,7 +28,7 @@ app.use(session({
   cookie: {
     // secure: true,
     httpOnly: true,
-    expires: 30 * 1000,
+    expires: 10 * 60 * 1000,
   },
   store: new MongoStore({ mongooseConnection:mongoose.connection })
   })
@@ -42,14 +43,6 @@ app.use((req, res, next) => {
   next()
 })
 
-// app.use((req,res,next) => {
-//   start = Date.now()
-//   milis = start - date
-//   res.locals.maxAge =  req.session.cookie.maxAge + Date.now()
-//   console.log('zostaniesz wylogowany za' + res.locals.maxAge/1000)
-//   next()
-// })
-
 app.use(connectFlash())
 app.use((req, res, next) => {
   res.locals.messages = req.flash()
@@ -57,17 +50,25 @@ app.use((req, res, next) => {
 })
 
 //Index route
-app.use('/', require('./routes/index.route'))
+app.use('/', 
+require('./routes/index.route'))
 
 //auth route
-app.use('/auth', require('./routes/auth.route'))
+app.use('/auth', 
+require('./routes/auth.route'))
 
 //user route
 app.use('/user',
   connectEnsureLogin.ensureLoggedIn({
-  redirectTo:'/auth/login'}), 
+    redirectTo:'/auth/login'}), 
   require('./routes/user.route'))
 
+//admin route
+app.use('/admin',
+  connectEnsureLogin.ensureLoggedIn({
+    redirectTo:'/auth/login'}),
+    ensureAdmin,   
+  require('./routes/admin.route'))
 
 //404 Handler
 app.use((req, res, next) => {
@@ -93,3 +94,12 @@ mongoose.connect(process.env.MONGODB_URI, {
     app.listen(PORT, ()=> console.log(`Server up running on port ${PORT}...`))
   }).catch(err => console.log(err.message))
 
+
+function ensureAdmin(req, res, next) {
+  if(req.user.role === roles.admin) {
+    next()
+  } else {
+    req.flash('warning', 'Permission denied')
+    res.redirect('/')
+  }
+}

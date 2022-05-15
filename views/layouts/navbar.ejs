@@ -3,16 +3,18 @@
     <ul>
       <% if (user) { %>
         <% if (user.role === 'ADMIN') { %>
+          <li><a href="/admin/users">Manage Users</a></li>
           <li><a href="">Terminal</a></li>
           <% } %>
           <div class="dropdown">
             <button class="dropbtn"><% if (user) { %>
             <%= user.email %>
              <% } %></button>
+             
             <div class="dropdown-content">
               <a href="/user/profile">Profile</a>
             <% if (user.role === 'ADMIN') { %>
-              <a href="/admin/users">Manage Users</a>
+              
               <% } %>
             <a href="/auth/logout">Logout</a>
             </div>

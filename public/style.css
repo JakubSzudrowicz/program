@@ -46,7 +46,7 @@ a:hover {
   color: #f9f9fc;
 }
 
-nav > a,
+nav > h1 > a,
 a {
   text-decoration: none;
   color: #000000;
@@ -55,7 +55,7 @@ a {
   font-size: 37px;
 }
 
-nav > a:hover,
+nav > h1 > a:hover,
 a:hover {
   background-color: #ddd9d9;
   color: #441ab6;
@@ -187,8 +187,8 @@ h1.table {
 
 table {
   margin-top: 32px;
-  min-width: 600px;
-  border: none;
+  min-width: 700px;
+  /* border: none; */
   border-spacing: 0;
   border: 4px solid #d1d5db;
   padding: 16px;
@@ -202,26 +202,36 @@ thead {
 
 thead tr {
   border-radius: 8px;
-  background-color: #db2777;
+  background-color: #323179;
   overflow: hidden;
+  
 }
 
 thead th {
   padding: 8px 0;
-  text-align: left;
+  text-align: center;
   padding-left: 16px;
+  padding-right: 16px;
+}
+
+tbody {
+  border-collapse: collapse;
+  text-align: center;
 }
 
 table th:first-child {
   border-radius: 10px 0 0 10px;
+  
 }
 
 table th:last-child {
   border-radius: 0 10px 10px 0;
+  
 }
 
 thead th:nth-child(1) {
   max-width: 44px;
+  
 }
 
 tbody tr:hover {
@@ -235,16 +245,17 @@ tbody tr td {
 
 .manage-user-form input[type='submit'] {
   background: transparent;
-  color: #db2777;
+  color: #323179;
   border: none;
   outline: none;
   padding: 8px 16px;
   cursor: pointer;
   border-radius: 8px;
+  font-size: 1.05rem;
 }
 
 .manage-user-form input[type='submit']:hover {
-  background-color: #fdf2f8;
+  background-color: #ddd9d9;
 }
 
 .manage-user-form select {
@@ -263,6 +274,24 @@ tbody tr td:first-child {
   overflow: hidden;
   text-overflow: ellipsis;
   padding: 0 8px;
+}
+
+tbody tr td {
+  border-bottom: solid 1px rgba(0, 0, 0, 0.185);
+}
+
+.manage-user-href {
+  color:#302e99;
+  background-color:  white;
+  font-size: 1.05rem; 
+}
+.manage-user-href:hover {
+  color:black;
+  background-color:  white;
+  font-size: 1.05rem; 
+}
+tbody tr th {
+  border: solid 1px black;
 }
 
 .profile {
@@ -284,7 +313,6 @@ tbody tr td:first-child {
 .goback {
   cursor: pointer;
 }
-
 
 
 div.messages {

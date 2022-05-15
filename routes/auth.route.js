@@ -3,6 +3,7 @@ const User = require('../models/user.model')
 const { body, validationResult } = require('express-validator')
 const passport = require('passport')
 const connectEnsureLogin = require('connect-ensure-login')
+const { registerValidator } = require('../utils/validators')
 
 router.get('/login',
 connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}),
@@ -25,25 +26,9 @@ async (req, res, next) => {
 })
 
 router.post('/registerUser',
-connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}), [
-    body('email')
-    .trim()
-    .isEmail()
-    .withMessage('Invalid email')
-    .normalizeEmail()
-    .toLowerCase(),
-    body('password')
-    .trim()
-    .isLength(2)
-    .withMessage('Password require at least 2 characters'),
-    body('password2')
-    .custom((value, {req} ) => {
-        if(value !== req.body.password) {
-            throw new Error('Passwords dont match')
-        }
-        return true
-    })
-], async (req, res, next) => {
+connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}), 
+registerValidator,
+ async (req, res, next) => {
     try {
         const errors = validationResult(req)
         if (!errors.isEmpty()) {
@@ -55,6 +40,7 @@ connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}), [
                 messages: req.flash()})
             return
         }
+
         const {email} = req.body
         const doesExist = await User.findOne({email})
         if (doesExist) {
@@ -62,6 +48,7 @@ connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}), [
             res.redirect('/auth/registerUser')
             return
         }
+
         const user = new User(req.body)
         await user.save()
         req.flash('success', `${user.email} registered succesfully`)

@@ -17,9 +17,10 @@ router.post('/login',
     successReturnToOrRedirect: '/',
     failureRedirect: '/auth/login',
     failureFlash: true
-}))
+    })
+)
 
-router.get('/register',
+router.get('/irolledmyfaceoverkeyboardtomakethissecretpath',
 connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}),
 async (req, res, next) => {
     res.render('registerUser')
@@ -65,13 +66,4 @@ connectEnsureLogin.ensureLoggedIn({redirectTo: '/'}),
     res.redirect('/')
 })
 
-function ensureAdmin(req, res, next) {
-    if(req.user.role === roles.admin) {
-      next()
-    } else {
-      req.flash('warning', 'Permission denied')
-      res.redirect('back')
-    }
-  }
-  
 module.exports = router

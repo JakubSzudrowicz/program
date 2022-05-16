@@ -7,6 +7,10 @@ const mongoose = require('mongoose')
 const { roles } = require('../utils/constants')
 const { registerValidator } = require('../utils/validators')
 
+router.get('/terminal', async (req, res , next) => {
+ res.render('terminal')
+})
+
 router.get('/users', async (req, res , next) => {
     try {
         const users = await User.find()
@@ -82,7 +86,7 @@ router.post('/update-role', async (req, res, next) => {
         return res.redirect('back')
       }
   
-      const user = await User.findByIdAndRemove(id)
+      const user = await User.findByIdAndRemove(id, { runValidators: true })
   
       req.flash('info', `${user.email} removed`)
       res.redirect('back')

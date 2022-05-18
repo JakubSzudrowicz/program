@@ -4,10 +4,30 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="/style.css" />
-  </head>
+    <link rel="stylesheet" href="/style.css" /> 
+   
+     <script>
+	let myWindow;
+	let toggleVar = 0;
+
+function toggleWin() {
+
+  toggleVar = !toggleVar;
+
+  if(toggleVar) {
+	myWindow = window.open("http://127.0.0.1:3000/wetty", "", "width=600,heigth=400");
+  };
+  
+  if(!toggleVar) {
+	myWindow.close();
+  };
+
+};
+
+    </script>
+ 
+ </head>
   <body>
     <%- include('./navbar') %> 
     <%- include('./flash-message') %> 
-
     <main>

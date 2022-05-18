@@ -1,6 +1,12 @@
 <%- include ('layouts/header') %>
 <h1 class="table">Manage Users</h1>
 
+<div>
+  <a class ="manage-user-href" href="/admin/register">Add user</a>
+</div>
+
+<input type="text" id="searchUsers" onkeyup="searchUsers()" placeholder="Search.." title="Type in a category">
+
 <table class="table">
   <thead>
     <th>id</th>
@@ -10,7 +16,7 @@
   </thead>
   <tbody>
     <% users.forEach(user => { %>
-    <tr>
+    <tr id="tabUser">
       <td><%= user.id %></td>
       <td><a class ="manage-user-href" href="/admin/user/<%= user.id %>"><%= user.email %></a></td>
       <td>

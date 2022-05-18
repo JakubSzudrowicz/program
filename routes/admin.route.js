@@ -128,7 +128,7 @@ connectEnsureLogin.ensureLoggedIn({redirectTo: '/'}),
         const user = new User(req.body)
         await user.save()
         req.flash('success', `${user.email} registered succesfully`)
-        res.redirect('/')
+        res.redirect('/admin/users')
     } catch (error) {
         next(error)
     }

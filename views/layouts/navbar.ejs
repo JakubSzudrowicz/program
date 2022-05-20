@@ -1,22 +1,35 @@
-<nav>
+<nav id="nav">
     <h2><a href="/">HOME</a></h2>
     <ul>
       <% if (user) { %>
+
+        <% if (user.role === 'USER') { %>
+          <li><a href="/user/devices">Devices</a></li>
+          <li><a href="/user/signals">Signals</a></li>
+        <% } %>
+
         <% if (user.role === 'ADMIN') { %>
+          <li><a href="/admin/devices">Devices</a></li>
+          <li><a href="/admin/signals">Signals</a></li>
           <li><a href="/admin/users">Manage Users</a></li>
           <li><a href="/admin/terminal">Terminal</a></li>
           <% } %>
+          
           <div class="dropdown">
-            <button class="dropbtn"><% if (user) { %>
-            <%= user.email %>
-             <% } %></button>
+            <button class="dropbtn">
+
+            <% if (user) { %>
+              <%= user.email %>
+            <% } %></button>
              
             <div class="dropdown-content">
               <a href="/user/profile">Profile</a>
-            <% if (user.role === 'ADMIN') { %>
+
+              <% if (user.role === 'ADMIN') { %>
               
               <% } %>
-            <a href="/auth/logout">Logout</a>
+
+               <a href="/auth/logout">Logout</a>
             </div>
           </div>
     </ul>

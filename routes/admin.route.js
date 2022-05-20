@@ -7,6 +7,16 @@ const mongoose = require('mongoose')
 const { roles } = require('../utils/constants')
 const { registerValidator } = require('../utils/validators')
 
+router.get('/signals', async (req, res, next) => {
+  const person = req.user
+  res.render('adminSignals')
+})
+
+router.get('/devices', async (req, res, next) => {
+  const person = req.user
+  res.render('adminDevices')
+})
+
 router.get('/terminal', async (req, res , next) => {
  res.render('terminal')
 })
@@ -58,8 +68,15 @@ router.post('/update-role', async (req, res, next) => {
         req.flash('error','Admin cannot remove themselves.');
         return res.redirect('back')
       }
-  
-      const user = await User.findByIdAndUpdate(id,{ role },{ new: true, runValidators: true })
+
+      const user = await User.findById(id)
+
+      if (user.email === process.env.ADMIN_EMAIL) {
+        req.flash('error','Cannot change role of super admin.');
+        return res.redirect('back')
+      }
+
+      await User.findByIdAndUpdate(id,{ role },{ new: true, runValidators: true })
   
       req.flash('info', `Role for ${user.email} updated`)
       res.redirect('back')
@@ -70,7 +87,10 @@ router.post('/update-role', async (req, res, next) => {
 
   router.post('/delete', async (req, res, next) => {
     try {
-      const { id} = req.body
+      const {id} = req.body
+      console.log(req.body)
+      console.log(id)
+
       if (!id) {
         req.flash('error', 'Invalid request')
         return res.redirect('back')
@@ -85,8 +105,15 @@ router.post('/update-role', async (req, res, next) => {
         req.flash('error','Admin cannot remove themselves.');
         return res.redirect('back')
       }
-  
-      const user = await User.findByIdAndRemove(id, { runValidators: true })
+
+      const user = await User.findById(id)
+      
+      if (user.email === process.env.ADMIN_EMAIL) {
+        req.flash('error','Cannot remove super admin.');
+        return res.redirect('back')
+      }
+
+       await User.findByIdAndRemove(id, { runValidators: true })
   
       req.flash('info', `${user.email} removed`)
       res.redirect('back')

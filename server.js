@@ -20,15 +20,17 @@ app.use(express.urlencoded({ extended: false }))
 
 const MongoStore = connectMongo(session)
 
+// app.set('trust proxy', 1)
 app.use(session({
   secret: process.env.SESSION_SECRET,
+  name: 'sessionId',
   resave: false,
   saveUninitialized: false,
   rolling: true,
   cookie: {
     // secure: true,
     httpOnly: true,
-    expires: 10 * 60 * 1000,
+    maxAge: 10 * 60 * 1000,
   },
   store: new MongoStore({ mongooseConnection:mongoose.connection })
   })

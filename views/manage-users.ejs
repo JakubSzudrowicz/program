@@ -2,10 +2,13 @@
 <h1 class="table">Manage Users</h1>
 
 <div>
-  <a class ="manage-user-href" href="/admin/register">Add user</a>
+  <a class ="addUser" href="/admin/register">Add user</a>
 </div>
 
-<input type="text" id="searchUsers" onkeyup="searchUsers()" placeholder="Search.." title="Type in a category">
+<div class="searchBar">
+  <input type="text" id="searchUsers" onkeyup="searchUsers()" placeholder="Search via email..." title="Type in a category">
+</div>
+
 
 <table class="table">
   <thead>
@@ -14,9 +17,9 @@
     <th>role</th>
     <th>delete</th>
   </thead>
-  <tbody>
+  <tbody id="tabUser">
     <% users.forEach(user => { %>
-    <tr id="tabUser">
+    <tr>
       <td><%= user.id %></td>
       <td><a class ="manage-user-href" href="/admin/user/<%= user.id %>"><%= user.email %></a></td>
       <td>

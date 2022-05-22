@@ -10,6 +10,17 @@ const passport = require('passport')
 const connectMongo = require('connect-mongo')
 const connectEnsureLogin = require('connect-ensure-login')
 const { roles } = require('./utils/constants')
+const helemt = require('helmet')
+const { default: helmet } = require('helmet')
+
+app.use(helmet({
+  contentSecurityPolicy: {
+      directives: {
+          styleSrc: ["'self'",'https://fonts.googleapis.com'],
+      },
+      noCache: true,
+  }
+}))
 
 app.use(morgan('dev'))
 
@@ -23,18 +34,20 @@ const MongoStore = connectMongo(session)
 // app.set('trust proxy', 1)
 app.use(session({
   secret: process.env.SESSION_SECRET,
-  name: 'sessionId',
+  name: 'originalCookieNameNotOneFromYoutube',
   resave: false,
   saveUninitialized: false,
-  rolling: true,
   cookie: {
     // secure: true,
     httpOnly: true,
-    maxAge: 10 * 60 * 1000,
+    maxAge: 28800000,
   },
-  store: new MongoStore({ mongooseConnection:mongoose.connection })
+  store: new MongoStore({
+     mongooseConnection:mongoose.connection 
+    })
   })
 )
+
 
 app.use(passport.initialize())
 app.use(passport.session())
@@ -93,7 +106,7 @@ mongoose.connect(process.env.MONGODB_URI, {
     useUnifiedTopology: true,
   }).then(() => {
     console.log('Connected to MongoDB')
-    app.listen(PORT, ()=> console.log(`Server up running on port ${PORT}...`))
+    app.listen(PORT, () => console.log(`Server up running on port ${PORT}...`))
   }).catch(err => console.log(err.message))
 
 

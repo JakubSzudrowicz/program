@@ -17,10 +17,6 @@ router.get('/devices', async (req, res, next) => {
   res.render('adminDevices')
 })
 
-router.get('/terminal', async (req, res , next) => {
- res.render('terminal')
-})
-
 router.get('/users', async (req, res , next) => {
     try {
         const users = await User.find()
@@ -88,8 +84,6 @@ router.post('/update-role', async (req, res, next) => {
   router.post('/delete', async (req, res, next) => {
     try {
       const {id} = req.body
-      console.log(req.body)
-      console.log(id)
 
       if (!id) {
         req.flash('error', 'Invalid request')

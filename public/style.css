@@ -11,7 +11,6 @@ body {
   background-color: #fff;
   font-family: 'Space Mono', monospace;
   font-family: 'Open Sans', sans-serif;
-
   max-width: 100vw;
   max-height: 100vh;
   margin-top: 70px;
@@ -23,7 +22,7 @@ nav {
   width:100%;
   position:fixed;
   top:0;
-  transition: top 0.5s;
+  transition: top 0.55s;
   justify-content: space-between;
   padding: 0.5rem 0;
   background-color: #ddd9d9;
@@ -54,7 +53,7 @@ a {
   color: #000000;
   padding: 8px 16px;
   border-radius: 8px;
-  font-size: 37px;
+  font-size: 2.4rem;
 }
 
 nav > h2 > a:hover {
@@ -100,7 +99,7 @@ nav > h2 > a:hover {
   color: #000000;
   padding: 8px 16px;
   border-radius: 8px;
-  font-size: 22px
+  font-size: 1.3rem;
 
 }
 
@@ -119,17 +118,22 @@ nav > h2 > a:hover {
 }
 
 
+
 .footer {
   background-color: #ddd9d9;
-  position: fixed;
+  position: absolute;
   bottom: 0;
-  width: 100vw;
+  width: 100%;
   text-align: center;
-  font-size: 16px;
+  font-size: 1rem;
   padding-top: 10px;
-  min-height: 40px;
+  height: 43px;
   color:#323179;
-  
+}
+
+#page-container {
+  position: relative;
+  min-height: calc(100vh - 70px);
 }
 
 main {
@@ -178,7 +182,7 @@ input:focus {
   outline: none;
   background-color: #fff;
   border: 2px solid #f3f4f6;
-  /* box-shadow: 0 0 8px #fdf2f8; */
+  box-shadow: 0 0 8px #fdf2f8;
 }
 
 h1.table {
@@ -204,9 +208,8 @@ thead {
 
 thead tr {
   border-radius: 8px;
-  background-color: #323179;
+  background-color: #323179;  
   overflow: hidden;
-  
 }
 
 thead th {
@@ -223,21 +226,15 @@ tbody {
 
 table th:first-child {
   border-radius: 10px 0 0 10px;
-  
 }
 
 table th:last-child {
   border-radius: 0 10px 10px 0;
-  
-}
 
-thead th:nth-child(1) {
-  max-width: 44px;
-  
 }
 
 tbody tr:hover {
-  /* background-color: #fdf2f8; */
+  /* background-color: #f5f3f4; */
 }
 
 tbody tr td {
@@ -274,9 +271,9 @@ tbody tr td {
   padding: 8px 20px;
   margin-top: 12px;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 1rem;
   border: 2px solid #d1d5db;
-  min-width: 400px;
+  min-width: 50vh;
   
 }
 
@@ -285,12 +282,13 @@ tbody tr td {
   padding: 8px 20px;
   margin-top: 12px;
   box-sizing: border-box;
-  font-size: 16px;
+  font-size: 1rem;
   border: 2px solid #323179;
-  min-width: 400px;
+  min-width: 50vh;
 }
 .searchBar > input:focus {
   border: 2px solid #323179;
+  box-shadow: 0 0 8px #fdf2f8;
 }
 
 .addUser {
@@ -316,8 +314,6 @@ tbody tr td {
   border-bottom: solid 1px rgba(0, 0, 0, 0.185);
 }
 
-
-
 .manage-user-href {
   color:#302e99;
   background-color:  white;
@@ -327,9 +323,6 @@ tbody tr td {
   color:black;
   background-color:  white;
   font-size: 1.05rem; 
-}
-tbody tr th {
-  border: solid 1px black;
 }
 
 .profile {
@@ -358,16 +351,17 @@ div.messages {
   justify-content: center;
   align-items: center;
   text-align: center;
+  margin: 16px;
 }
 
 ul.messages {
-  /* list-style: none; */
   min-width: 33%;
   max-width: 33%;
   border-radius: 8px;
   overflow: hidden;
   margin: 16px;
 }
+
 
 ul.messages * {
   padding: 8px 12px;

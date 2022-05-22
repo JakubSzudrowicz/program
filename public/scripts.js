@@ -1,41 +1,29 @@
-let myWindow;
-let toggleVar = 0;
-function toggleWin() {
+const searchUsersButton = document.getElementById('searchUsers')
+searchUsersButton.addEventListener('input', searchUsersFunc)
 
-    
-    toggleVar = !toggleVar
+function searchUsersFunc() {
 
-        if (toggleVar) {
-                myWindow = window.open("http://127.0.0.1:3000/wetty", "myWindow")
-        }
+    let input = document.getElementById("searchUsers")
+    let filter = input.value.toUpperCase()
+    let table = document.getElementById("tabUser")
+    let tr = table.getElementsByTagName("tr")
+    let tr_length = tr.length
 
-        if(!toggleVar) {
-            myWindow.close()
-        }
-}
-
-function searchUsers() {
-
-    let input = document.getElementById("searchUsers");
-    let filter = input.value.toUpperCase();
-    let table = document.getElementById("tabUser");
-    let tr = table.getElementsByTagName("tr");
-
-    for (let i = 0; i < tr.length; i++) {
-      let td = tr[i].getElementsByTagName("td")[1];
+    for (let i = 0; i < tr_length; i++) {
+      let td = tr[i].getElementsByTagName("td")[1]
       if (td) {
-        let txtValue = td.textContent || td.innerText;
+        let txtValue = td.textContent || td.innerText
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
-          tr[i].style.display = "";
+          tr[i].style.display = ""
         } else {
-          tr[i].style.display = "none";
+          tr[i].style.display = "none"
         }
       }       
     }
   }
 
-let prevScrollpos = window.pageYOffset;
 
+let prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
   let currentScrollPos = window.pageYOffset;
   if (prevScrollpos > currentScrollPos) {

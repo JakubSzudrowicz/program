@@ -9,18 +9,10 @@ const connectFlash = require('connect-flash')
 const passport = require('passport')
 const connectMongo = require('connect-mongo')
 const connectEnsureLogin = require('connect-ensure-login')
-const { roles } = require('./utils/constants')
-const helemt = require('helmet')
-const { default: helmet } = require('helmet')
+const { roles } = require('./utils/roles')
+const helmet = require('helmet')
 
-app.use(helmet({
-  contentSecurityPolicy: {
-      directives: {
-          styleSrc: ["'self'",'https://fonts.googleapis.com'],
-      },
-      noCache: true,
-  }
-}))
+
 
 app.use(morgan('dev'))
 
@@ -40,7 +32,7 @@ app.use(session({
   cookie: {
     // secure: true,
     httpOnly: true,
-    maxAge: 28800000,
+    maxAge: 8 * 60 * 60 * 1000,
   },
   store: new MongoStore({
      mongooseConnection:mongoose.connection 
@@ -63,6 +55,17 @@ app.use((req, res, next) => {
   res.locals.messages = req.flash()
   next()
 })
+
+app.use(helmet({
+  contentSecurityPolicy: {
+      directives: {
+          styleSrc: ["'self'",'https://fonts.googleapis.com'],
+      },
+      noCache: true,
+  }
+}))
+
+
 
 //Index route
 app.use('/', 

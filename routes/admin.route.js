@@ -4,7 +4,7 @@ const { body, validationResult } = require('express-validator')
 const passport = require('passport')
 const connectEnsureLogin = require('connect-ensure-login')
 const mongoose = require('mongoose')
-const { roles } = require('../utils/constants')
+const { roles } = require('../utils/roles')
 const { registerValidator } = require('../utils/validators')
 
 router.get('/signals', async (req, res, next) => {

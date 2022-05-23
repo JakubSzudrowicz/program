@@ -182,7 +182,7 @@ input:focus {
   outline: none;
   background-color: #fff;
   border: 2px solid #f3f4f6;
-  box-shadow: 0 0 8px #fdf2f8;
+  /* box-shadow: 0 0 8px #fdf2f8; */
 }
 
 h1.table {
@@ -230,7 +230,10 @@ table th:first-child {
 
 table th:last-child {
   border-radius: 0 10px 10px 0;
+}
 
+thead th:nth-child(1) {
+  max-width: 44px;
 }
 
 tbody tr:hover {
@@ -301,7 +304,8 @@ font-size: 1.3rem;
 }
 
 
-thead tr th:first-child {
+thead tr th:first-child,
+tbody tr td:first-child {
   width: 6em;
   min-width: 6em;
   max-width: 6em;
@@ -378,4 +382,11 @@ ul.messages * {
 }
 .messages .info {
   background-color: #93c5fd;
+}
+
+@media (max-width: 900px) {
+  .main {
+    display: block;
+    width: 100%;
+  }
 }

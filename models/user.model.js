@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt')
 const mongoose = require('mongoose')
 const createHttpError = require('http-errors')
-const {roles} = require('../utils/constants')
+const {roles} = require('../utils/roles')
 
 const UserSchema = new mongoose.Schema({
     email:{

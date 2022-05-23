@@ -2,6 +2,23 @@ const router = require('express').Router()
 const passport = require('passport')
 const connectEnsureLogin = require('connect-ensure-login')
 const UserLog = require('../models/userLogs.model')
+const rateLimit = require('express-rate-limit')
+const MongoStore = require('rate-limit-mongo')
+
+const loginRateLimit = rateLimit({
+  windowsMs: 2 * 60 * 1000,
+  max: 3,
+  standardHeaders: true,
+  legacyHeaders: false,
+  handler:  function (req, res) {
+      req.flash('error', 'You are blocked')
+      res.redirect('back')
+  },
+  store: new MongoStore({
+    uri: process.env.RATELIMIT_URI,
+    expireTimeMs: 2 * 60 * 1000,
+  }),
+})
 
 router.get('/login',
 connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}),
@@ -9,7 +26,9 @@ connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}),
     res.render('login')
 })
 
+
 router.post('/login',
+    loginRateLimit,
     connectEnsureLogin.ensureLoggedOut({redirectTo: '/'}),
     passport.authenticate('local', { 
     successReturnToOrRedirect: '/auth/userlogin',

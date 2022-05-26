@@ -46,36 +46,36 @@ router.post('/update-role', async (req, res, next) => {
       const { id, role } = req.body
       if ( !id || !role) {
         req.flash('error', 'Invalid request')
-        return res.redirect('back')
+        return res.redirect('/admin/users')
       }
   
       if (!mongoose.Types.ObjectId.isValid(id)) {
         req.flash('error', 'Invalid id')
-        return res.redirect('back')
+        return res.redirect('/admin/users')
       }
   
       const rolesArray = Object.values(roles);
       if (!rolesArray.includes(role)) {
         req.flash('error', 'Invalid role')
-        return res.redirect('back')
+        return res.redirect('/admin/users')
       }
   
       if (req.user.id === id) {
         req.flash('error','Admin cannot remove themselves.');
-        return res.redirect('back')
+        return res.redirect('/admin/users')
       }
 
       const user = await User.findById(id)
 
       if (user.email === process.env.ADMIN_EMAIL) {
         req.flash('error','Cannot change role of super admin.');
-        return res.redirect('back')
+        return res.redirect('/admin/users')
       }
 
       await User.findByIdAndUpdate(id,{ role },{ new: true, runValidators: true })
   
       req.flash('info', `Role for ${user.email} updated`)
-      res.redirect('back')
+      res.redirect('/admin/users')
     } catch (error) {
       next(error)
     }

@@ -1,13 +1,13 @@
-POST http://localhost:8000/auth/login
+POST https://192.168.0.174/auth/login
 
 {
-    "email": "admin@gmail",
+    "email": "admin@gmail.com",
     "password": "123"
 }
 
 ###
 
-GET http://192.168.0.174:80/admin/users
+GET http://192.168.0.44/admin/users
 
 {
     "user.role": "ADMIN"

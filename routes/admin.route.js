@@ -2,20 +2,9 @@ const router = require('express').Router()
 const User = require('../models/user.model')
 const { body, validationResult } = require('express-validator')
 const passport = require('passport')
-const connectEnsureLogin = require('connect-ensure-login')
 const mongoose = require('mongoose')
 const { roles } = require('../utils/roles')
 const { registerValidator } = require('../utils/validators')
-
-router.get('/signals', async (req, res, next) => {
-  const person = req.user
-  res.render('adminSignals')
-})
-
-router.get('/devices', async (req, res, next) => {
-  const person = req.user
-  res.render('adminDevices')
-})
 
 router.get('/users', async (req, res , next) => {
     try {
@@ -87,43 +76,41 @@ router.post('/update-role', async (req, res, next) => {
 
       if (!id) {
         req.flash('error', 'Invalid request')
-        return res.redirect('back')
+        return res.redirect('/admin/users')
       }
   
       if (!mongoose.Types.ObjectId.isValid(id)) {
         req.flash('error', 'Invalid id')
-        return res.redirect('back')
+        return res.redirect('/admin/users')
       }
   
       if (req.user.id === id) {
         req.flash('error','Admin cannot remove themselves.');
-        return res.redirect('back')
+        return res.redirect('/admin/users')
       }
 
       const user = await User.findById(id)
       
       if (user.email === process.env.ADMIN_EMAIL) {
         req.flash('error','Cannot remove super admin.');
-        return res.redirect('back')
+        return res.redirect('/admin/users')
       }
 
        await User.findByIdAndRemove(id, { runValidators: true })
   
       req.flash('info', `${user.email} removed`)
-      res.redirect('back')
+      res.redirect('/admin/users')
     } catch (error) {
       next(error)
     }
   })
 
 router.get('/register',
-connectEnsureLogin.ensureLoggedIn({redirectTo: '/'}),
 async (req, res, next) => {
     res.render('register')
 })
 
 router.post('/register',
-connectEnsureLogin.ensureLoggedIn({redirectTo: '/'}),
  registerValidator,
   async (req, res, next) => {
     try {
@@ -156,7 +143,6 @@ connectEnsureLogin.ensureLoggedIn({redirectTo: '/'}),
 })
 
 router.get('/logout',
-connectEnsureLogin.ensureLoggedIn({redirectTo: '/'}),
  async (req, res, next) => {
     req.logout()
     res.redirect('/')

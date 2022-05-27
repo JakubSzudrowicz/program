@@ -1,0 +1,19 @@
+<%- include('./layouts/header') %> 
+
+<h1>Add device</h1>
+
+  <form action="/admin/devices/addDevice" method="post" class="lg-form">
+    <div>
+      <label for="deviceName">Device name</label>
+      <input type="text" name="deviceName" id="deviceName" />
+    </div>
+    <div>
+      <label for="deviceType">Device type</label>
+      <input type="text" name="deviceType" id="deviceType" />
+    </div>
+    <div>
+      <input type="submit" value="Add device" />
+    </div>
+  </form>
+
+<%- include('./layouts/footer') %> 

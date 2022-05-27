@@ -45,5 +45,5 @@ UserSchema.methods.isValidPassword = async function(password) {
         throw createHttpError.InternalServerError(error.message)        }
 }
 
-const User = mongoose.model('user', UserSchema)
+const User = mongoose.model('users', UserSchema)
 module.exports = User;

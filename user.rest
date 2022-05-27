@@ -1,16 +1,19 @@
-POST https://192.168.0.174/auth/login
+POST http://127.0.0.1:8000/auth/login
 
 {
     "email": "admin@gmail.com",
-    "password": "123"
+    "password": "123",
+    "originalCookieNameNotOneFromYoutube": "HVqrX81xIE_AurMh4iHApB1v-GG_xxz6"
 }
 
 ###
 
-GET http://192.168.0.44/admin/users
+GET http://127.0.0.1:8000/admin/users
 
 {
-    "user.role": "ADMIN"
+    "emai": "admin@gmail.com",
+    "password": "123",
+    "cookie": "8I2h3e_v9SPA7sMe5Ofa6Zt6km31Ldng"
 }
 
 ###

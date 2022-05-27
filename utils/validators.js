@@ -1,4 +1,5 @@
 const { body } = require('express-validator')
+
 module.exports = {
     registerValidator: [
         body('email')
@@ -18,5 +19,15 @@ module.exports = {
             }
             return true
         })
+    ],
+    deviceValidator: [
+        body('deviceName')
+        .trim()
+        .isLength(2)
+        .withMessage('Device name too short'),
+        body('deviceType')
+        .trim()
+        .isLength(2)
+        .withMessage('Device type too short'),
     ]
 }

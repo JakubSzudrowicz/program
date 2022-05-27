@@ -2,4 +2,18 @@
 
 adminDevices
 
+<tbody id="tabUser">
+  <% devices.forEach(device => { %>
+  <tr>
+    <td><%= device.deviceName %></td>
+
+      <form action="/admin/devices/delete" method="post" class="manage-user-form" >
+        <input type="hidden" name="id" value="<%= device.id %>" />
+        <input type="submit" value="delete">
+      </form>
+    </td>
+  </tr>
+  <% }) %>
+</tbody>
+
 <%- include ('layouts/footer') %>

@@ -81,12 +81,26 @@ app.use('/user',
     redirectTo:'/auth/login'}), 
   require('./routes/user.route'))
 
+//user route
+app.use('/user/devices',
+connectEnsureLogin.ensureLoggedIn({
+  redirectTo:'/auth/login'}), 
+require('./routes/user.route'))
+
 //admin route
 app.use('/admin',
   connectEnsureLogin.ensureLoggedIn({
     redirectTo:'/auth/login'}),
     ensureAdmin,   
   require('./routes/admin.route'))
+
+  //admin route to devices
+app.use('/admin/devices',
+connectEnsureLogin.ensureLoggedIn({
+  redirectTo:'/auth/login'}),
+  ensureAdmin,   
+require('./routes/admin.devices.route'))
+
 
 //404 Handler
 app.use((req, res, next) => {

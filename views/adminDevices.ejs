@@ -1,12 +1,22 @@
 <%- include ('layouts/header') %>
 
-adminDevices
+<h1 class="table">Devices</h1>
 
+<div>
+  <a class ="addUser" href="/admin/devices/addDevice">Add device</a>
+</div>
+<table class="table">
+  <thead>
+    <th>Device name</th>
+    <th>Type</th>
+    <th>Delete</th>
+  </thead>
 <tbody id="tabUser">
   <% devices.forEach(device => { %>
   <tr>
     <td><%= device.deviceName %></td>
-
+    <td><%= device.deviceType %></td>
+    <td>
       <form action="/admin/devices/delete" method="post" class="manage-user-form" >
         <input type="hidden" name="id" value="<%= device.id %>" />
         <input type="submit" value="delete">

@@ -72,28 +72,29 @@ router.get('/', async (req, res, next) => {
 //     }
 //   })
 
-  // router.post('/delete', async (req, res, next) => {
-  //   try {
-  //     const {id} = req.body
+  router.post('/delete', async (req, res, next) => {
+    try {
+      const {id} = req.body
 
-  //     if (!id) {
-  //       req.flash('error', 'Invalid request')
-  //       return res.redirect('back')
-  //     }
+      if (!id) {
+        req.flash('error', 'Invalid request')
+        return res.redirect('back')
+      }
   
-  //     if (!mongoose.Types.ObjectId.isValid(id)) {
-  //       req.flash('error', 'Invalid id')
-  //       return res.redirect('back')
-  //     }
+      if (!mongoose.Types.ObjectId.isValid(id)) {
+        req.flash('error', 'Invalid id')
+        return res.redirect('back')
+      }
       
-  //      await Device.findByIdAndRemove(id, { runValidators: true })
+      const device = await Device.findById(id)
+      await device.remove()
   
-  //     req.flash('info', `${deviceName} removed`)
-  //     res.redirect('back')
-  //   } catch (error) {
-  //     next(error)
-  //   }
-  // })
+      req.flash('info', `${device.deviceName} removed`)
+      res.redirect('/admin/devices')
+    } catch (error) {
+      next(error)
+    }
+  })
 
 router.get('/addDevice',
 async (req, res, next) => {

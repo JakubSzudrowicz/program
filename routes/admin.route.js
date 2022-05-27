@@ -96,7 +96,7 @@ router.post('/update-role', async (req, res, next) => {
         return res.redirect('/admin/users')
       }
 
-       await User.findByIdAndRemove(id, { runValidators: true })
+       await user.remove()
   
       req.flash('info', `${user.email} removed`)
       res.redirect('/admin/users')

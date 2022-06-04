@@ -29,5 +29,29 @@ module.exports = {
         .trim()
         .isLength(2)
         .withMessage('Device type too short'),
+    ],
+
+    simulatorValidator: [
+        body('deviceIPsimulator')
+        .trim()
+        .isIP()
+        .withMessage('Not valid IP'),
+        body('deviceIDsimulator')
+        .trim()
+        .isInt()
+        .withMessage('Enter number'),
+        body('devicePORTsimulator')
+        .trim()
+        .isPort()
+        .withMessage('Not a port'),
+        body('addressSimulator')
+        .trim()
+        .isInt()
+        .withMessage('Enter number'),
+        body('quantitySimulator')
+        .trim()
+        .isInt()
+        .withMessage('Enter number'),
     ]
+
 }

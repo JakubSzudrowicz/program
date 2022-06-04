@@ -5,6 +5,24 @@
 <div>
   <a class ="addUser" href="/admin/devices/addDevice">Add device</a>
 </div>
+
+<ul id="myUL">
+  <li><span class="caret">Beverages</span>
+    <ul class="nested">
+      <li>Water <span> xxx<form action="/admin/devices/addDevice" method="post">
+        <div>
+          <input type="text" name="deviceName" id="deviceName" />
+        </div>
+      </form></span> </li>
+      <li>Coffee</li>
+    </ul>
+  </li>
+</ul>
+
+
+ <!-- /// -->
+
+
 <table class="table">
   <thead>
     <th>Device name</th>
@@ -13,7 +31,17 @@
   </thead>
 <tbody id="tabUser">
   <% devices.forEach(device => { %>
-  <tr>
+  
+    <tr> 
+      <ul id="myUL">
+        <li><span class="caret"><%= device.deviceName %> </span>
+         <ul class="nested">
+            <li>Water</li>
+            <li>Coffee</li>
+         </ul>
+       </li>
+      </ul>
+    
     <td><%= device.deviceName %></td>
     <td><%= device.deviceType %></td>
     <td>
@@ -22,6 +50,7 @@
         <input type="submit" value="delete">
       </form>
     </td>
+
   </tr>
   <% }) %>
 </tbody>

@@ -1,0 +1,88 @@
+<%- include('./layouts/header') %> 
+
+<h1 class = "table">Modbus Master Simulator</h1>
+
+
+        <label for="chooseFunction">Choose funtion</label>
+        <select name="chooseFunction" id="chooseFunction">
+            <option value="readCoils">Read coils</option>
+            <option value="readHoldingRegisters">Read holding registers</option>
+            <option value="writeCoils">Write coils </option>
+            <option value="writeHoldingRegister">Write holding registers</option>
+        </select>
+
+    <form action="/admin/modbus/simulatorReadHoldingRegisters" method="post" class="ms-form" id="postReadRegisters">
+       <p>Read holding registers</p>
+        <div>
+        <label for="deviceIPsimulator">Device IP</label>
+        <input type="text" name="deviceIPsimulator" id="deviceIPsimulator" />
+        </div>
+        <div>
+            <label for="deviceIDsimulator">Device ID</label>
+            <input type="text" name="deviceIDsimulator" id="deviceIDsimulator" />
+        </div>
+        <div>
+            <label for="devicePORTsimulator">Device port</label>
+            <input type="text" name="devicePORTsimulator" id="devicePORTsimulator" />
+        </div>
+        <div>
+        <label for="addressSimulator">Starting address</label>
+        <input type="text" name="addressSimulator" id="addressSimulator" />
+        </div>
+        <div>
+            <label for="quantitySimulator">Quantity</label>
+            <input type="text" name="quantitySimulator" id="quantitySimulator" />
+        </div>
+        <div>
+        <input type="submit" value="Send" />
+        </div>
+    </form>
+
+    <form action="/admin/modbus/simulatorReadCoils" method="post" class="ms-form" id="postReadCoils">
+        <p>Read coils</p>
+         <div>
+         <label for="deviceIPsimulator">Device IP</label>
+         <input type="text" name="deviceIPsimulator" id="deviceIPsimulator" />
+         </div>
+         <div>
+             <label for="deviceIDsimulator">Device ID</label>
+             <input type="text" name="deviceIDsimulator" id="deviceIDsimulator" />
+         </div>
+         <div>
+             <label for="devicePORTsimulator">Device port</label>
+             <input type="text" name="devicePORTsimulator" id="devicePORTsimulator" />
+         </div>
+         <div>
+         <label for="addressSimulator">Starting address</label>
+         <input type="text" name="addressSimulator" id="addressSimulator" />
+         </div>
+         <div>
+             <label for="quantitySimulator">Quantity</label>
+             <input type="text" name="quantitySimulator" id="quantitySimulator" />
+         </div>
+         <div>
+         <input type="submit" value="Send" />
+         </div>
+     </form>
+
+
+  <% if (myjson) { %>
+   
+    <table class="table-ms">
+        <thead>
+            <th>Address</th>
+            <th>Value</th>
+        </thead>
+        <tbody id="tabUser">
+          <% myjson.forEach(json => { %>
+          <tr>
+            <td><%= json.address %></td>
+            <td><%= json.value %></td>
+          </tr>
+          <% }) %>
+        </tbody>
+      </table>
+      <% } %>
+
+        <%- include('./layouts/footer') %> 
+

@@ -1,5 +1,5 @@
-const searchUsersButton = document.getElementById('searchUsers')
-searchUsersButton.addEventListener('input', searchUsersFunc)
+if(document.getElementById('searchUsers'))
+document.getElementById('searchUsers').addEventListener('input', searchUsersFunc)
 
 function searchUsersFunc() {
 
@@ -27,9 +27,45 @@ let prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
   let currentScrollPos = window.pageYOffset;
   if (prevScrollpos > currentScrollPos) {
-    document.getElementById("nav").style.top = "0px";
+    document.getElementById("nav").style.top = "0px"
   } else {
-    document.getElementById("nav").style.top = "-100px";
+    document.getElementById("nav").style.top = "-100px"
   }
   prevScrollpos = currentScrollPos;
 }
+
+
+let toggler = document.getElementsByClassName("caret")
+let i =0
+let toggler_length = toggler.length
+for (i = 0; i < toggler_length; i++) {
+  toggler[i].addEventListener("click", function() {
+    this.parentElement.querySelector(".nested").classList.toggle("active")
+    this.classList.toggle("caret-down")
+  });
+}
+
+let selector = document.getElementById("chooseFunction"); 
+
+document.getElementById('postReadRegisters').style.display='none'
+
+
+selector.addEventListener("click", () => {
+
+  selector.addEventListener("change", () => {
+    switch (selector.value) {
+
+      case "readHoldingRegisters":
+        document.getElementById('postReadRegisters').style.display=''
+        document.getElementById('postReadCoils').style.display='none'
+        break;  
+
+      case "readCoils":
+        document.getElementById('postReadRegisters').style.display='none'
+        document.getElementById('postReadCoils').style.display=''
+        break
+
+    }
+    
+  })
+})

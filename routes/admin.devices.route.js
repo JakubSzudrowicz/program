@@ -1,20 +1,20 @@
-const router = require('express').Router()
-const passport = require('passport')
-const mongoose = require('mongoose')
-const { deviceValidator } = require('../utils/validators')
-const Device = require('../models/devices.model ')
-const { body, validationResult } = require('express-validator')
+// const router = require('express').Router()
+// const passport = require('passport')
+// const mongoose = require('mongoose')
+// const { deviceValidator } = require('../utils/validators')
+// const Device = require('../models/devices.model ')
+// const { body, validationResult } = require('express-validator')
 
 
-router.get('/', async (req, res, next) => {
-  try {
-      const devices = await Device.find()
-      // res.json({ devices })
-    res.render('adminDevices', {devices})
-  } catch (error) {
-      next(error)
-  }
-}) 
+// router.get('/', async (req, res, next) => {
+//   try {
+//       const devices = await Device.find()
+//       // res.json({ devices })
+//     res.render('adminDevices', {devices})
+//   } catch (error) {
+//       next(error)
+//   }
+// }) 
 
 // router.post('/:id', async (req, res, next) => {
 //     try { 
@@ -72,65 +72,65 @@ router.get('/', async (req, res, next) => {
 //     }
 //   })
 
-  router.post('/delete', async (req, res, next) => {
-    try {
-      const {id} = req.body
+//   router.post('/delete', async (req, res, next) => {
+//     try {
+//       const {id} = req.body
 
-      if (!id) {
-        req.flash('error', 'Invalid request')
-        return res.redirect('back')
-      }
+//       if (!id) {
+//         req.flash('error', 'Invalid request')
+//         return res.redirect('back')
+//       }
   
-      if (!mongoose.Types.ObjectId.isValid(id)) {
-        req.flash('error', 'Invalid id')
-        return res.redirect('back')
-      }
+//       if (!mongoose.Types.ObjectId.isValid(id)) {
+//         req.flash('error', 'Invalid id')
+//         return res.redirect('back')
+//       }
       
-      const device = await Device.findById(id)
-      await device.remove()
+//       const device = await Device.findById(id)
+//       await device.remove()
   
-      req.flash('info', `${device.deviceName} removed`)
-      res.redirect('/admin/devices')
-    } catch (error) {
-      next(error)
-    }
-  })
+//       req.flash('info', `${device.deviceName} removed`)
+//       res.redirect('/admin/devices')
+//     } catch (error) {
+//       next(error)
+//     }
+//   })
 
-router.get('/addDevice',
-async (req, res, next) => {
-    res.render('addDevice')
-})
+// router.get('/addDevice',
+// async (req, res, next) => {
+//     res.render('addDevice')
+// })
 
-router.post('/addDevice',
- deviceValidator,
-  async (req, res, next) => {
-    try {
-        const errors = validationResult(req)
-        if (!errors.isEmpty()) {
-            errors.array().forEach(error => {
-                req.flash('error', error.msg)
-            })
-            res.render('addDevice', {
-                deviceName: req.body.deviceName,
-                messages: req.flash()})
-            return
-        }
+// router.post('/addDevice',
+//  deviceValidator,
+//   async (req, res, next) => {
+//     try {
+//         const errors = validationResult(req)
+//         if (!errors.isEmpty()) {
+//             errors.array().forEach(error => {
+//                 req.flash('error', error.msg)
+//             })
+//             res.render('addDevice', {
+//                 deviceName: req.body.deviceName,
+//                 messages: req.flash()})
+//             return
+//         }
 
-        const {deviceName} = req.body
-        const doesExist = await Device.findOne({deviceName})
-        if (doesExist) {
-            req.flash('warning', `${deviceName} exists`)
-            res.redirect('/admin/devices/')
-            return
-        }
+//         const {deviceName} = req.body
+//         const doesExist = await Device.findOne({deviceName})
+//         if (doesExist) {
+//             req.flash('warning', `${deviceName} exists`)
+//             res.redirect('/admin/devices/')
+//             return
+//         }
 
-        const device = new Device(req.body)
-        await device.save()
-        req.flash('success', `${device.deviceName} added succesfully`)
-        res.redirect('/admin/devices/')
-    } catch (error) {
-        next(error)
-    }
-})
+//         const device = new Device(req.body)
+//         await device.save()
+//         req.flash('success', `${device.deviceName} added succesfully`)
+//         res.redirect('/admin/devices/')
+//     } catch (error) {
+//         next(error)
+//     }
+// })
 
-module.exports = router
+// module.exports = router

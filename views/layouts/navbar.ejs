@@ -4,13 +4,14 @@
       <% if (user) { %>
 
         <% if (user.role === 'USER') { %>
-          <li><a href="/user/devices">Devices</a></li>
-          <li><a href="/user/signals">Signals</a></li>
+          <!-- <li><a href="/user/devices">Devices</a></li>
+          <li><a href="/user/signals">Signals</a></li> -->
         <% } %>
 
         <% if (user.role === 'ADMIN') { %>
-          <li><a href="/admin/devices">Devices</a></li>
-          <li><a href="/admin/signals">Signals</a></li>
+          <li><a href="/admin/modbus/">Modbus Master Simulator</a></li>
+          <!-- <li><a href="/admin/devices">Devices</a></li>
+          <li><a href="/admin/signals">Signals</a></li> -->
           <li><a href="/admin/users">Manage Users</a></li>
           <% } %>
           

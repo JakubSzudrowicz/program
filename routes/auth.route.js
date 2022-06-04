@@ -37,6 +37,7 @@ router.post('/login',
     }),
 )
 
+//do zmiany na middleware??
 router.get('/userlogin',
 connectEnsureLogin.ensureLoggedIn({redirectTo: '/'}),
  async (req, res, next) => {

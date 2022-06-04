@@ -95,11 +95,17 @@ app.use('/admin',
   require('./routes/admin.route'))
 
   //admin route to devices
-app.use('/admin/devices',
+// app.use('/admin/devices',
+// connectEnsureLogin.ensureLoggedIn({
+//   redirectTo:'/auth/login'}),
+//   ensureAdmin,   
+// require('./routes/admin.devices.route'))
+
+app.use('/admin/modbus',
 connectEnsureLogin.ensureLoggedIn({
   redirectTo:'/auth/login'}),
   ensureAdmin,   
-require('./routes/admin.devices.route'))
+require('./routes/modbus.route'))
 
 
 //404 Handler

@@ -35,35 +35,50 @@ window.onscroll = function() {
 }
 
 
-let toggler = document.getElementsByClassName("caret")
-let i =0
-let toggler_length = toggler.length
-for (i = 0; i < toggler_length; i++) {
-  toggler[i].addEventListener("click", function() {
-    this.parentElement.querySelector(".nested").classList.toggle("active")
-    this.classList.toggle("caret-down")
-  });
-}
+// let toggler = document.getElementsByClassName("caret")
+// let i =0
+// let toggler_length = toggler.length
+// for (i = 0; i < toggler_length; i++) {
+//   toggler[i].addEventListener("click", function() {
+//     this.parentElement.querySelector(".nested").classList.toggle("active")
+//     this.classList.toggle("caret-down")
+//   });
+// }
+
+$('#chooseFunction').change(function(event){
+  const selectedFunction = $(this).children("option:selected").val()
+  sessionStorage.setItem("itemName",selectedFunction)
+});
+
+$('select').find('option[value='+sessionStorage.getItem('itemName')+']').attr('selected','selected')
+
+$(document).ready(function() {
+  const selectedSessionFunction = $('select').val()
+  document.getElementById('postReadRegisters').style.display='none'
+  document.getElementById('postReadCoils').style.display='none'
+
+  switch(selectedSessionFunction){
+    case "readHoldingRegisters":
+      document.getElementById('postReadRegisters').style.display=''
+    break;  
+    case "readCoils":
+      document.getElementById('postReadCoils').style.display=''
+    break
+  }
+});
 
 let selector = document.getElementById("chooseFunction"); 
-
-document.getElementById('postReadRegisters').style.display='none'
-
-
 selector.addEventListener("click", () => {
-
-  selector.addEventListener("change", () => {
+  selector.addEventListener("change", () => {    
     switch (selector.value) {
-
       case "readHoldingRegisters":
         document.getElementById('postReadRegisters').style.display=''
         document.getElementById('postReadCoils').style.display='none'
-        break;  
-
+      break;  
       case "readCoils":
         document.getElementById('postReadRegisters').style.display='none'
         document.getElementById('postReadCoils').style.display=''
-        break
+      break
 
     }
     

@@ -60,6 +60,7 @@ app.use(helmet({
   contentSecurityPolicy: {
       directives: {
           styleSrc: ["'self'",'https://fonts.googleapis.com'],
+          scriptSrc: ['*', "'unsafe-inline'", 'https://ajax.googleapis.com'],
       },
       noCache: true,
   }

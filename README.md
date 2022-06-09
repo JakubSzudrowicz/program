@@ -35,3 +35,6 @@ w drugim terminalu
 sudo modbusslave/diagslave/x86_64-linux-gnu/diagslave
 
 z poziomu hosta znaleźć IP serwera i wpisać go w przeglądarke, należy potwierdzić certyfikat SSL.
+login dla admina w przegladarce:
+email:admin@gmail.com
+haslo: 123

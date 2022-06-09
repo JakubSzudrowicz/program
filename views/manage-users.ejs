@@ -1,45 +1,46 @@
 <%- include ('layouts/header') %>
-<h1 class="table">Manage Users</h1>
+<div class="displayPage ">
+  <h1 class="table">Manage Users</h1>
 
-<div>
-  <a class ="addUser" href="/admin/register">Add user</a>
+  <div>
+    <a class ="addUser" href="/admin/register">Add user</a>
+  </div>
+
+  <div class="searchBar">
+    <input type="text" id="searchUsers" placeholder="Search via email..." title="Type in a category"> 
+  </div>
+
+  <table class="table">
+    <thead>
+      <th>id</th>
+      <th>email</th>
+      <th>role</th>
+      <th>delete</th>
+    </thead>
+    <tbody id="tabUser">
+      <% users.forEach(user => { %>
+      <tr>
+        <td><%= user.id %></td>
+        <td><a class ="manage-user-href" href="/admin/user/<%= user.id %>"><%= user.email %></a></td>
+        <td>
+          <form action="/admin/update-role" method="post" class="manage-user-form" >
+            <input type="hidden" name="id" value="<%= user.id %>" />
+            <select name="role" id="role">
+              <option value="ADMIN" <%= user.role === 'ADMIN' ? 'selected' : '' %> >Admin</option>
+              <option value="USER" <%= user.role === 'USER' ? 'selected' : '' %>>User</option>
+            </select>
+            <input type="submit" value="update">
+          </form>
+        </td>
+        <td>
+          <form action="/admin/delete" method="post" class="manage-user-form" >
+            <input type="hidden" name="id" value="<%= user.id %>" />
+            <input type="submit" value="delete">
+          </form>
+        </td>
+      </tr>
+      <% }) %>
+    </tbody>
+  </table>
 </div>
-
-<div class="searchBar">
-  <input type="text" id="searchUsers" placeholder="Search via email..." title="Type in a category"> 
-</div>
-
-<table class="table">
-  <thead>
-    <th>id</th>
-    <th>email</th>
-    <th>role</th>
-    <th>delete</th>
-  </thead>
-  <tbody id="tabUser">
-    <% users.forEach(user => { %>
-    <tr>
-      <td><%= user.id %></td>
-      <td><a class ="manage-user-href" href="/admin/user/<%= user.id %>"><%= user.email %></a></td>
-      <td>
-        <form action="/admin/update-role" method="post" class="manage-user-form" >
-          <input type="hidden" name="id" value="<%= user.id %>" />
-          <select name="role" id="role">
-            <option value="ADMIN" <%= user.role === 'ADMIN' ? 'selected' : '' %> >Admin</option>
-            <option value="USER" <%= user.role === 'USER' ? 'selected' : '' %>>User</option>
-          </select>
-          <input type="submit" value="update">
-        </form>
-      </td>
-      <td>
-        <form action="/admin/delete" method="post" class="manage-user-form" >
-          <input type="hidden" name="id" value="<%= user.id %>" />
-          <input type="submit" value="delete">
-        </form>
-      </td>
-    </tr>
-    <% }) %>
-  </tbody>
-</table>
-
 <%- include ('layouts/footer') %>

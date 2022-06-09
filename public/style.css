@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 * {
   margin: 0;
@@ -114,7 +112,7 @@ nav > h2 > a:hover {
 
 .dropdown:hover .dropbtn {
   background-color: #323179;
-  color: #f9f9fc;;
+  color: #f9f9fc;
 }
 
 
@@ -136,12 +134,23 @@ nav > h2 > a:hover {
   min-height: calc(100vh - 70px);
 }
 
-main {
-  display: flex;
+
+.displayPage {
+  display:flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
+.displayPageRow {
+  margin-top:20px;
+  display:flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+  top:0;
+}
+
 
 form.lg-form {
   margin: 16px;
@@ -179,27 +188,33 @@ form.lg-form {
 }
 
 
-form.ms-form {
+form.ms-form{
   margin: 10px;
+  margin-bottom: 50px;
   padding: 10px;
   border: 2px solid #53719e;
-  max-width: 200px;
+  max-width: 300px;
   border-radius: 16px;
-  position: absolute;
+  /* position:block; */
   left:25%;
-  top:200px;
-}
 
-.ms-form label {
-  display: inline;
+}
+ .ms-form > p {
+   font-weight: bold;
+   margin-bottom: 20px;
+  font-size: 1.3rem;
+  text-align: center;
+  }
+  
+.ms-form   {
   margin: 6px 0px;
   font-weight: bold;
   width: 100%;
   border:none;
 }
 
+
 .ms-form input {
-  display: inline-block;
   margin: 6px 0px;
   height: 24px;
   border: none;
@@ -242,14 +257,14 @@ table {
   margin-bottom:100px;
 }
 .table-ms {
-  margin-top: 10px;
-  min-width: 300px;
-  /* border: none; */
+
+  min-width: auto;
   border-spacing: 0;
   border: 4px solid #d1d5db;
   padding: 6px;
   border-radius: 16px;
   margin-bottom:100px;
+  display:block;
 }
 
 table {
@@ -330,6 +345,21 @@ tbody tr td {
   border: 2px solid #f3f4f6;
 }
 
+.manage-user-form select:hover {
+  border: 2px solid #323179;
+  border-radius: 8px;
+}
+
+#chooseFunction {
+  border: none;
+  font-size: 1.05rem;
+  padding: 6px 12px;
+  border-radius: 8px;
+  border: 2px solid #d1d5db;
+}
+#chooseFunction:hover {
+  border: 2px solid #323179
+}
 
 .searchBar > input {
   border-radius: 8px;
@@ -339,7 +369,6 @@ tbody tr td {
   font-size: 1rem;
   border: 2px solid #d1d5db;
   min-width: 50vh;
-  
 }
 
 .searchBar > input:hover {
@@ -382,12 +411,12 @@ tbody tr td {
 
 .manage-user-href {
   color:#302e99;
-  background-color:  white;
+  background-color:  #ffffff;
   font-size: 1.05rem; 
 }
 .manage-user-href:hover {
   color:black;
-  background-color:  white;
+  background-color:  #ffffff;
   font-size: 1.05rem; 
 }
 
@@ -472,7 +501,7 @@ ul, #myUL {
 
 .caret::before {
   content: "\25B6";
-  color: black;
+  color: #000000;
   display: inline-block;
   margin-right: 6px;
 }
@@ -483,7 +512,7 @@ ul, #myUL {
 
 .nested {
   display: none;
-  border: 1px solid black;
+  border: 1px solid #000000;
   border-radius: 8px;
 }
 

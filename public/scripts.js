@@ -45,6 +45,12 @@ window.onscroll = function() {
 //   });
 // }
 
+document.getElementById('postReadRegisters').style.display='none'
+document.getElementById('postReadCoils').style.display='none'
+document.getElementById('postWriteHoldingRegisters').style.display='none'
+document.getElementById('postWriteCoils').style.display='none'
+
+
 $('#chooseFunction').change(function(event){
   const selectedFunction = $(this).children("option:selected").val()
   sessionStorage.setItem("itemName",selectedFunction)
@@ -54,15 +60,20 @@ $('select').find('option[value='+sessionStorage.getItem('itemName')+']').attr('s
 
 $(document).ready(function() {
   const selectedSessionFunction = $('select').val()
-  document.getElementById('postReadRegisters').style.display='none'
-  document.getElementById('postReadCoils').style.display='none'
+  
 
   switch(selectedSessionFunction){
     case "readHoldingRegisters":
       document.getElementById('postReadRegisters').style.display=''
-    break;  
+    break
     case "readCoils":
       document.getElementById('postReadCoils').style.display=''
+    break
+    case "writeCoils":
+      document.getElementById('postWriteCoils').style.display=''
+    break
+    case "writeHoldingRegister":
+      document.getElementById('postWriteHoldingRegisters').style.display=''
     break
   }
 });
@@ -74,13 +85,78 @@ selector.addEventListener("click", () => {
       case "readHoldingRegisters":
         document.getElementById('postReadRegisters').style.display=''
         document.getElementById('postReadCoils').style.display='none'
+        document.getElementById('postWriteCoils').style.display='none'
+        document.getElementById('postWriteHoldingRegisters').style.display='none'
       break;  
       case "readCoils":
         document.getElementById('postReadRegisters').style.display='none'
         document.getElementById('postReadCoils').style.display=''
+        document.getElementById('postWriteCoils').style.display='none'
+        document.getElementById('postWriteHoldingRegisters').style.display='none'
       break
-
+      case "writeCoils":
+        document.getElementById('postReadRegisters').style.display='none'
+        document.getElementById('postReadCoils').style.display='none'
+        document.getElementById('postWriteCoils').style.display=''
+        document.getElementById('postWriteHoldingRegisters').style.display='none'
+      break
+      case "writeHoldingRegister":
+        document.getElementById('postReadRegisters').style.display='none'
+        document.getElementById('postReadCoils').style.display='none'
+        document.getElementById('postWriteCoils').style.display='none'
+        document.getElementById('postWriteHoldingRegisters').style.display=''
+      break
     }
     
   })
 })
+
+document.getElementById('quantitySimulatorWriteCoils').addEventListener('keyup', addFields)
+   
+function addFields() {
+    let number = document.getElementById("quantitySimulatorWriteCoils").value
+    let container = document.getElementById("numberOfCoils")
+    let addressNumber = document.getElementById("addressSimulatorWiteCoils").value
+    while (container.hasChildNodes()) {
+        container.removeChild(container.lastChild)
+    }
+    for (i = 0; i < number; i++) {
+
+        let label = document.createElement('label')
+        label.style.display="inline-block"
+        label.style.width="220px"
+        label.appendChild(document.createTextNode("Address " + (parseInt(addressNumber) + i + 1)))
+        container.appendChild(label)
+        let input = document.createElement("input")
+        input.type = "checkbox"
+        input.style.width="50px"
+        input.name = 'WriteCoilsSimulator' + (i + 1)
+        console.log(input.name)
+        container.appendChild(input)
+    }
+}
+
+document.getElementById('quantitySimulatorWriteHoldingRegisters').addEventListener('keyup', addInputs)
+   
+function addInputs() {
+    let number = document.getElementById("quantitySimulatorWriteHoldingRegisters").value
+    let container = document.getElementById("numberOfHoldingRegisters")
+    let addressNumber = document.getElementById("addressSimulatorWiteRegisters").value
+    while (container.hasChildNodes()) {
+        container.removeChild(container.lastChild)
+    }
+    for (i = 0; i < number; i++) {
+
+        let label = document.createElement('label')
+        label.style.display="inline-block"
+        label.style.width="190px"
+        label.appendChild(document.createTextNode("Address " + (parseInt(addressNumber) + 400000 + i + 1)))
+        container.appendChild(label)
+        let input = document.createElement("input")
+        input.type = "number"
+        input.style.width="80px"
+        input.name = 'WriteHoldingRegistersSimulator' + (i + 1)
+        console.log(input.name)
+        container.appendChild(input)
+    }
+}

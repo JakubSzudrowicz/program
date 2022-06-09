@@ -59,7 +59,7 @@ app.use((req, res, next) => {
 app.use(helmet({
   contentSecurityPolicy: {
       directives: {
-          styleSrc: ["'self'",'https://fonts.googleapis.com'],
+          styleSrc: ["'self'","'unsafe-inline'",'https://fonts.googleapis.com'],
           scriptSrc: ['*', "'unsafe-inline'", 'https://ajax.googleapis.com'],
       },
       noCache: true,
@@ -130,7 +130,8 @@ mongoose.connect(process.env.MONGODB_URI, {
     useUnifiedTopology: true,
   }).then(() => {
     console.log('Connected to MongoDB')
-    app.listen(PORT, () => console.log(`Server up running on port ${PORT}...`))
+    app.listen(PORT, () => 
+    console.log(`Server up running on port ${PORT}...`))
   }).catch(err => console.log(err.message))
 
 
